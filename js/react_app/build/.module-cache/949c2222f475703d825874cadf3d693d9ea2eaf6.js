@@ -1,40 +1,21 @@
 /** @jsx React.DOM */
 var ProfileForm = React.createClass({displayName: 'ProfileForm',
 
-  errors: {email: {}, password: {}},
+  errors: {},
 
-  validate: function() {
-    var email = this.refs.email.getDOMNode().value.trim(),
-        password = this.refs.password.getDOMNode().value.trim(),
-        isValid = true;
+  handleSubmit: function() {
+    var email = this.refs.email.getDOMNode().value.trim();
+    var password = this.refs.password.getDOMNode().value.trim();
 
-    this.errors = {email: {}, password: {}};
     if (email === "") {
-      this.errors.email.text = "Can't be blank";
-      this.errors.email.hasError = "has-error";
-      isValid = false;
+      this.errors.email = "Can't be blank"
     }
 
     if (password === "") {
-      this.errors.password.text = "Can't be blank";
-      this.errors.password.hasError = "has-error";
-      isValid = false;
+      this.errors.password = "Can't be blank"
     }
-
+    this.setState({errors: this.errors});
     /*  TODO:: add more fields ...  */
-
-    return isValid;
-  },
-
-  handleSubmit: function() {
-
-    var isValid = this.validate();
-    if (!isValid) {
-      this.setState({errors: this.errors});
-    } else {
-      window.location.reload();
-    }
-
     return false;
   },
   getInitialState: function() {
@@ -44,15 +25,15 @@ var ProfileForm = React.createClass({displayName: 'ProfileForm',
     return (
       React.DOM.form( {role:"form", name:"profileForm", 'data-ajax':"formSubmitSuccess", onSubmit:this.handleSubmit}, 
           React.DOM.div( {className:"form-inner"}, 
-            React.DOM.div( {className:"form-group {this.errors.email.hasError}"}, 
+            React.DOM.div( {className:"form-group", ref:"emailWrap"}, 
               React.DOM.label( {for:"exampleInputEmail1"}, "Email address"),
               React.DOM.input( {type:"email", className:"form-control", id:"exampleInputEmail1", placeholder:"Enter email", ref:"email"}),
-              React.DOM.div( {className:"help-block"}, this.errors.email.text)
+              React.DOM.div( {className:"help-block"}, this.state.errors.email)
             ),
-            React.DOM.div( {className:"form-group  {this.errors.password.hasError}"} , 
+            React.DOM.div( {className:"form-group"}, 
               React.DOM.label( {for:"exampleInputPassword1"}, "Password"),
               React.DOM.input( {type:"password", className:"form-control", id:"exampleInputPassword1", placeholder:"Password", ref:"password"}),
-              React.DOM.div( {className:"help-block"}, this.errors.password.text)
+              React.DOM.div( {className:"help-block"}, this.state.errors.password)
             ),
             React.DOM.div( {className:"form-group"}, 
               React.DOM.label( {for:"exampleInputFile"}, "Personal Info"),

@@ -1,14 +1,14 @@
 /** @jsx React.DOM */
 var ProfileForm = React.createClass({displayName: 'ProfileForm',
 
-  errors: {email: {}, password: {}},
+  errors: {},
 
   validate: function() {
     var email = this.refs.email.getDOMNode().value.trim(),
         password = this.refs.password.getDOMNode().value.trim(),
         isValid = true;
 
-    this.errors = {email: {}, password: {}};
+    this.errors = {};
     if (email === "") {
       this.errors.email.text = "Can't be blank";
       this.errors.email.hasError = "has-error";

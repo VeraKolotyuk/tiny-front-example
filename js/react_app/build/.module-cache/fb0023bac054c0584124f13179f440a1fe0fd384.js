@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var ProfileForm = React.createClass({displayName: 'ProfileForm',
 
-  errors: {email: {}, password: {}},
+  errors: {email: {text: '', hasError: ''}, password: {text: '', hasError: ''}},
 
   validate: function() {
     var email = this.refs.email.getDOMNode().value.trim(),

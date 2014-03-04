@@ -1,21 +1,40 @@
 /** @jsx React.DOM */
 var ProfileForm = React.createClass({
 
-  errors: {},
+  errors: {email: {}, password: {}},
 
-  handleSubmit: function() {
-    var email = this.refs.email.getDOMNode().value.trim();
-    var password = this.refs.password.getDOMNode().value.trim();
+  validate: function() {
+    var email = this.refs.email.getDOMNode().value.trim(),
+        password = this.refs.password.getDOMNode().value.trim(),
+        isValid = true;
 
+    this.errors = {email: {}, password: {}};
     if (email === "") {
-      this.errors.email = "Can't be blank"
+      this.errors.email.text = "Can't be blank";
+      this.errors.email.hasError = "has-error";
+      isValid = false;
     }
 
     if (password === "") {
-      this.errors.password = "Can't be blank"
+      this.errors.password.text = "Can't be blank";
+      this.errors.password.hasError = "has-error";
+      isValid = false;
     }
-    this.setState({errors: this.errors});
+
     /*  TODO:: add more fields ...  */
+
+    return isValid;
+  },
+
+  handleSubmit: function() {
+
+    var isValid = this.validate();
+    if (!isValid) {
+      this.setState({errors: this.errors});
+    } else {
+      window.location.reload();
+    }
+
     return false;
   },
   getInitialState: function() {
@@ -25,15 +44,15 @@ var ProfileForm = React.createClass({
     return (
       <form role="form" name="profileForm" data-ajax="formSubmitSuccess" onSubmit={this.handleSubmit}>
           <div className="form-inner">
-            <div className="form-group" ref="emailWrap">
+            <div className="form-group {this.errors.email.hasError}">
               <label for="exampleInputEmail1">Email address</label>
               <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" ref="email"/>
-              <div className="help-block">{this.errors.email}</div>
+              <div className="help-block">{this.errors.email.text}</div>
             </div>
-            <div className="form-group">
+            <div className="form-group  {this.errors.password.hasError}" >
               <label for="exampleInputPassword1">Password</label>
               <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" ref="password"/>
-              <div className="help-block">{this.errors.password}</div>
+              <div className="help-block">{this.errors.password.text}</div>
             </div>
             <div className="form-group">
               <label for="exampleInputFile">Personal Info</label>

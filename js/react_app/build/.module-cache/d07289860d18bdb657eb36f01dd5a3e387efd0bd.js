@@ -44,7 +44,7 @@ var ProfileForm = React.createClass({displayName: 'ProfileForm',
     return (
       React.DOM.form( {role:"form", name:"profileForm", 'data-ajax':"formSubmitSuccess", onSubmit:this.handleSubmit}, 
           React.DOM.div( {className:"form-inner"}, 
-            React.DOM.div( {className:"form-group {this.errors.email.hasError}"}, 
+            React.DOM.div( {className:"form-group ",  className:  "form-group " + this.errors.email.hasError}, 
               React.DOM.label( {for:"exampleInputEmail1"}, "Email address"),
               React.DOM.input( {type:"email", className:"form-control", id:"exampleInputEmail1", placeholder:"Enter email", ref:"email"}),
               React.DOM.div( {className:"help-block"}, this.errors.email.text)
