@@ -3,13 +3,15 @@
 define(
 
   [
-    'profile_form'
+    'profile_form_ui',
+    'profile_form_data'
   ],
 
-  function(profileForm) {
+  function(profileFormUI, profileFormData) {
 
     function initialize() {
-      profileForm.attachTo("[name='profileForm']");
+      profileFormUI.attachTo("[name='profileForm']");
+      profileFormData.attachTo("[name='profileForm']");
     }
 
     return initialize;

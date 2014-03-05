@@ -48,15 +48,6 @@ $(function() {
       var isValid = validate($target);
       if (isValid) {
         window.location.reload();
-          //   $.ajax($target.attr('action'), {
-          //     type: $target.attr('method'),
-          //     dataType: 'json',
-          //     data: $target.serialize(),
-          //     context: this,
-          //     success: function(response) {
-          //         this.trigger($target.attr('data-ajax'), response);
-          //     }
-          // });
       }
     });
 
